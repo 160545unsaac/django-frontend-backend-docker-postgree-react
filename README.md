@@ -1,9 +1,10 @@
 # 專案指引
 
-建立 Django 專案模版，以軟體開發生命週期（SDLC）為範疇，示範如何導入 docker 及 docker compose 之 VM 虛擬化技術，運用於「系統開發作業」之中。
+建立 Django + RESTful API 專案模版，以軟體開發生命週期（SDLC）為範疇，示範如何導入 docker compose 之 VM 虛擬化技術，運用於「系統開發作業」之中。
 
 專案特性：
  - Web: Django V1.11
+ - API: Django REST Framework
  - DB: 
     * Engine: PostgreSQL
     * Lib:  psycopg2
@@ -13,7 +14,7 @@
 系統開發作業流程，由下列之「作業程序」所構成：
  - （一）建置系統開發環境作業程序
  - （二）初始資料庫作業程序
- - （三）檢視開發中系統作業程序
+ - （三）檢驗開發中系統作業程序
  
  
 
@@ -92,26 +93,27 @@ networks:
 
 要求 Django Framework ，透過 Model 之設計，建立或設資料庫之 Table 。
 
-### 要求屬於 Web 的 Docker Container ，執行資料庫初始的 migrate 指令。
 
-### 初始資料庫（PostgreSQL）
+### 1. 初始化資料庫（PostgreSQL）。
+
+自 Web 端的 Docker Container ，發動資料庫「初始化」之 migrate 指令。
 ```commandline
 $ docker-compose run web python src/my_project/manage.py migrate
 ```
 
-### 建立管理員使用之帳號及密碼
+### 2. 建立管理員使用之帳號及密碼。
 ```commandline
 $ docker-compose run web python src/my_project/manage.py createsuperuser
 ```
 
-### 要求 Django 依據 Model 建立／修改資料庫的表格（Table）
+### 3. 依據 Model 新建或變更資料庫中的表格（Table）。
 ```commandline
 $ docker-compose run web python src/my_project/manage.py makemigrations
 $ docker-compose run web python src/my_project/manage.py migrate
 ```
 
 
-## （三）檢視開發中系統作業程序
+## （三）檢驗開發中系統作業程序
 
 系統開發作業之工作，進展到某一階段，需要檢驗其功能運作；或是觀察其執行之輸出結果時，依照以下之程序步驟進行操作。
 
@@ -129,7 +131,10 @@ http://localhost:8000/api
 
 ### 3. 在 Web 瀏覽器觀察輸出結果。
 
-
+### 4. 終結檢驗作業程序時，自終端機輸入以下指令。
+```commandline
+$ docker-compose down
+```
 
 ---
 
