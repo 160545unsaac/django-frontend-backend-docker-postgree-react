@@ -218,6 +218,20 @@ cb4812c6a870        bridge                            bridge              local
 b864ac2621e7        none                              null                local
 ```
 
+### Docker 使用之 Volume 已建立
+
+DB Volume: dockercomposedjangorest_pgdata
+
+```commandline
+$ docker volume ls
+DRIVER              VOLUME NAME
+local               059355b07e63555402dd9c9a5816dc3350288f455cba8644a142588a4b5df24c
+...
+local               dockercomposedjangorest_pgdata
+...
+local               ms-sql-db-vol
+```
+
 ---
 
 # 系統開發維運作業
