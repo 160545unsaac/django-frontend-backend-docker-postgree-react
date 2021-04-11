@@ -16,9 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from rest_framework.urlpatterns import format_suffix_patterns
-from webapp import views
+from django.urls import include, path
+from .router import router
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^api/employees/', views.EmployeeList.as_view()),
+    url('admin/', admin.site.urls),
+    path('api/', include(router.urls))
 ]
