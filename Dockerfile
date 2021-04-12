@@ -1,7 +1,8 @@
+# pull official base image
 FROM node:14.16.0
 
 # set working directory
-WORKDIR /frontend
+WORKDIR /
 
 # add `/app/node_modules/.bin` to $PATH
 #ENV PATH node_modules/.bin:$PATH
@@ -17,15 +18,3 @@ COPY . .
 
 # start app
 CMD ["npm", "start"]
-
-
-
-FROM python:3.8
-
-ENV PYTHONUNBUFFERED 1
-
-RUN mkdir /code
-WORKDIR /code
-
-COPY . /code/
-RUN pip install -r backend/my_project/requirements.txt
