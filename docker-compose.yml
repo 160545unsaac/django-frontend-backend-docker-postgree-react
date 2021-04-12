@@ -1,14 +1,35 @@
 version: '3.1'
+
 services:
-  frontend:
-    build: .
-    volumes:
-      - /node_modules
+
+  db:
+    image: postgres:10.1
+    environment:
+      - POSTGRES_DB=usuario
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     ports:
-      - "3000:3000"
-    stdin_open: true
+      - "5432:5432"
     networks:
       - backend
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+
+  web:
+    build: .
+    command: python backend/my_project/manage.py runserver 0.0.0.0:8000
+    restart: always
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    networks:
+      - backend
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
 
 networks:
   backend:
